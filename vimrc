@@ -28,10 +28,10 @@ endif
 
 " Color {{{
  
-colorscheme solarized
-set background=dark
+"colorscheme solarized
+"set background=dark
 
-" colorscheme codedark
+colorscheme codedark
 " If you have vim-airline, you can also enable the provided theme:
 " let g:airline_theme = 'codedark'
 
