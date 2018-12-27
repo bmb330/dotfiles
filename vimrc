@@ -165,15 +165,44 @@ set rtp+=/usr/bin/fzf
 " }}}
 
 " Linting {{{
+let g:ale_linter_aliases = {
+    \ 'jsx': ['css', 'javascript'],
+    \ }
 
 let g:ale_linters = {
+    \ 'awk': ['gawk'],
+    \ 'c': ['gcc'],
+    \ 'cpp': ['gcc'],
     \ 'css': ['stylelint', 'prettier'],
+    \ 'gitcommit': ['gitlint'],
     \ 'html': ['HTMLHint', 'tidy', 'prettier'],
-    \ 'javasript': ['eslint', 'prettier'],
-    \ 'ruby': ['ruby', ''],
+    \ 'javasript': ['prettier', 'stylelint', 'eslint'],
+    \ 'json': ['prettier'],
+    \ 'jsx': ['stylelint', 'eslint'],
+    \ 'less': ['prettier', 'stylelint'],
+    \ 'markdown': ['prettier'],
+    \ 'ruby': ['rubocop', 'ruby'],
+    \ 'sass': ['prettier', 'stylelint'],
+    \ 'scss': ['prettier', 'stylelint'],
     \ 'sh': ['language_server', 'shell', 'shellcheck', 'shfmt'],
+    \ 'sql': ['sqlint'],
+    \ 'typescript': ['prettier', 'eslint'],
+    \ 'yaml': ['prettier'],
     \ }
+
+let g:ale_fixers = {
+    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ 'css': ['prettier', 'tidy'],
+    \ 'html': ['prettier', 'tidy'],
+    \ 'javascript': ['prettier', 'eslint'],
+    \ 'ruby': ['rubocop'],
+    \}
+
 let g:ale_completion_enabled = 1
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=172
 
 " }}}
 
@@ -191,8 +220,7 @@ endif
 augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
-    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
-                \:call <SID>StripTrailingWhitespaces()
+    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md call <SID>StripTrailingWhitespaces()
     autocmd FileType java setlocal noexpandtab
     autocmd FileType java setlocal list
     autocmd FileType java setlocal listchars=tab:+\ ,eol:-
