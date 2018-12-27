@@ -82,11 +82,11 @@ set laststatus=2
 
 let g:airline_solarized_bg='dark'
 let g:airline_powerline_fonts=1
-" let g:airline#extensions#tabline#enabled=1
-" let g:airline#extensions#tabline#fnamemod=':t'
-" let g:airline_detect_modified=1
-" let g:airline#extensions#bufferline#enabled=1
-" let g:airline#extensions#tabline#buffer_nr_show=1
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#fnamemod=':t'
+let g:airline_detect_modified=1
+let g:airline#extensions#bufferline#enabled=1
+let g:airline#extensions#tabline#buffer_nr_show=1
 let g:airline#extensions#ale#enabled = 1
 
 " }}}
@@ -240,6 +240,16 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal tabstop=2
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
+    autocmd BufReadPost *
+      \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+      \   exe "normal! g'\"" |
+      \ endif
+augroup END
+
+augroup loadpacks
+    autocmd FileType javascript packadd vim-javascript
+    autocmd FileType ruby packadd vim-ruby
+    autocmd FileType ruby packadd vim-rails
 augroup END
 " }}}
 
