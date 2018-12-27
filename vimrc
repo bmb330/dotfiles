@@ -28,10 +28,22 @@ endif
 
 " Color {{{
  
-"colorscheme solarized
-"set background=dark
+colorscheme solarized
+set background=dark
+let &t_ut=''
 
-colorscheme codedark
+" General colors
+if has('gui_running') || has('nvim')
+    hi Normal 		guifg=#f6f3e8 guibg=#242424
+else
+    " Set the terminal default background and foreground colors, thereby
+    " improving performance by not needing to set these colors on empty cells.
+    hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+    let &t_ti = &t_ti . "\033]10;#839496\007\033]11;#002b36\007"
+    let &t_te = &t_te . "\033]110\007\033]111\007"
+endif
+
+"colorscheme codedark
 " If you have vim-airline, you can also enable the provided theme:
 " let g:airline_theme = 'codedark'
 
@@ -141,6 +153,8 @@ nnoremap <leader>s :mksession<CR>
 nnoremap <leader>a :Ack
 nnoremap <leader>f :FZF<CR>
 nnoremap <leader>u :GundoToggle<CR>
+" run ruby code using leader-r only when inside a .rb file
+au BufRead, *.rb nmap <leader>r :!ruby %<cr>
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
