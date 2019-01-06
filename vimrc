@@ -27,7 +27,6 @@ endif
 " }}}
 
 " Color {{{
- 
 colorscheme solarized
 set background=dark
 let &t_ut=''
@@ -102,6 +101,8 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
+
+set tags=tags;/
 
 " }}}
 
