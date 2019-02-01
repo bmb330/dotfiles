@@ -27,24 +27,27 @@ endif
 " }}}
 
 " Color {{{
-colorscheme solarized
+"colorscheme solarized
 set background=dark
+set t_Co=256
 let &t_ut=''
-
-" General colors
-if has('gui_running') || has('nvim')
-    hi Normal 		guifg=#f6f3e8 guibg=#242424
-else
-    " Set the terminal default background and foreground colors, thereby
-    " improving performance by not needing to set these colors on empty cells.
-    hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
-    let &t_ti = &t_ti . "\033]10;#839496\007\033]11;#002b36\007"
-    let &t_te = &t_te . "\033]110\007\033]111\007"
-endif
+"
+"" General colors
+"if has('gui_running') || has('nvim')
+"    hi Normal 		guifg=#f6f3e8 guibg=#242424
+"else
+"    " Set the terminal default background and foreground colors, thereby
+"    " improving performance by not needing to set these colors on empty cells.
+"    hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+"    let &t_ti = &t_ti . "\033]10;#839496\007\033]11;#002b36\007"
+"    let &t_te = &t_te . "\033]110\007\033]111\007"
+"endif
 
 "colorscheme codedark
 " If you have vim-airline, you can also enable the provided theme:
 " let g:airline_theme = 'codedark'
+
+colorscheme gruvbox
 
 " }}}
 
@@ -79,7 +82,8 @@ set laststatus=2
 
 " Airline {{{
 
-let g:airline_solarized_bg='dark'
+"let g:airline_solarized_bg='dark'
+let g:airline_theme = 'gruvbox'
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#fnamemod=':t'
@@ -93,6 +97,16 @@ let g:airline#extensions#ale#enabled = 1
 " Tab completion {{{
 set path+=**
 set wildmenu
+" }}}
+
+" Omni complete {{{
+set omnifunc=syntaxcomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " }}}
 
 " Searching {{{
