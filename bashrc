@@ -67,6 +67,8 @@ export documents="$HOME/Documents"
 export dotfiles="$HOME/dotfiles"
 export projects="$HOME/projects"
 
+export PATH="$HOME/bin:$PATH"
+
 source /usr/share/doc/pkgfile/command-not-found.bash
 source ~/dotfiles/bashrc.aliases
 source ~/dotfiles/bashrc.commands
@@ -101,14 +103,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$HOME/.rvm/bin:$HOME/bin:$PATH"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-# RVM bash completion
-[[ -r "$HOME/.rvm/scripts/completion" ]] && source "$HOME/.rvm/scripts/completion"
-
 export MSF_DATABASE_CONFIG="`ls ~/.msf4/database.yml`"
 
 # Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
@@ -135,3 +129,29 @@ export PATH=$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$PATH
 # Add environment variable ANT_ROOT for cocos2d-x
 #export ANT_ROOT="/usr/bin/"
 #export PATH=$ANT_ROOT:$PATH
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# RVM bash completion
+[[ -r "$HOME/.rvm/scripts/completion" ]] && source "$HOME/.rvm/scripts/completion"
+
+
+###-tns-completion-start-###
+if [ -f /home/brandon/.tnsrc ]; then 
+    source /home/brandon/.tnsrc 
+fi
+###-tns-completion-end-###
+
+# Import colorscheme from 'wal' asynchronously
+# &   # Run the process in the background.
+# ( ) # Hide shell job control messages.
+(cat ~/.cache/wal/sequences &)
+
+# Alternative (blocks terminal for 0-3ms)
+#cat ~/.cache/wal/sequences
+
+# To add support for TTYs this line can be optionally added.
+#source ~/.cache/wal/colors-tty.sh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

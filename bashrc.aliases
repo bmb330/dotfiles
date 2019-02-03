@@ -44,3 +44,4 @@ man() {
 }
 
 alias i='irb --simple-prompt'
+alias n='nvim'

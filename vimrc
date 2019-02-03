@@ -101,12 +101,12 @@ set wildmenu
 
 " Omni complete {{{
 set omnifunc=syntaxcomplete#Complete
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " }}}
 
 " Searching {{{
@@ -196,7 +196,7 @@ let g:ale_linters = {
     \ 'jsx': ['stylelint', 'eslint'],
     \ 'less': ['prettier', 'stylelint'],
     \ 'markdown': ['prettier'],
-    \ 'ruby': ['rubocop', 'ruby'],
+    \ 'ruby': ['solargraph', 'rubocop', 'ruby'],
     \ 'sass': ['prettier', 'stylelint'],
     \ 'scss': ['prettier', 'stylelint'],
     \ 'sh': ['language_server', 'shell', 'shellcheck', 'shfmt'],
