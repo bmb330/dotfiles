@@ -273,8 +273,12 @@ set writebackup
 " }}}
 
 " Snippets {{{
+let g:UltiSnipsExpandTrigger="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>4jwf>a
+y
 
 " }}}
 

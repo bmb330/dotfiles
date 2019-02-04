@@ -37,6 +37,9 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('ryanoasis/vim-devicons')
 
+  call dein#add('SirVer/ultisnips')
+  call dein#add('honza/vim-snippets')
+
   if dein#check_install()
     call dein#install()
   endif

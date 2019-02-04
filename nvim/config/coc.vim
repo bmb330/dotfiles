@@ -42,8 +42,8 @@ imap <c-space> coc#refresh()
 ""au Filetype lua source ~/.config/nvim/config/lua.vim
 " \<C-f> fix for formating issues
 inoremap <expr> <cr>
-     \ pumvisible() ? "\<C-y>\<C-f>" :
-     \ "\<C-g>u\<C-f>\<CR>\<Plug>DiscretionaryEnd"
+     \ pumvisible() ? "\<C-y>" :
+     \ "\<C-g>u\<CR>\<Plug>DiscretionaryEnd"
 ""autocmd TextChangedI * call feedkeys("\<C-f>")
 
 " Use `[c` and `]c` for navigate diagnostics
@@ -83,7 +83,7 @@ nmap <leader>l  <Plug>(coc-format-selected)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd FileType javasript,typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -121,3 +121,11 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+" Use <C-l> to trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> to select text for visual text of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> to jump to forward placeholder, which is default
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> to jump to backward placeholder, which is default
+let g:coc_snippet_prev = '<c-k>'

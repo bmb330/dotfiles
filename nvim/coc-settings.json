@@ -1,5 +1,5 @@
 {
-  "coc.preferences.autoTrigger": "always",
+  "coc.preferences.autoTrigger": "trigger",
   "coc.preferences.triggerAfterInsertEnter": false,
   "coc.preferences.timeout": 2000,
   "coc.preferences.noselect": false,
