@@ -4,47 +4,7 @@
 " https://github.com/amix/vimrc/blob/44dca49794b3cc3c1ee8d331ee0a56a68a063263/vimrcs/basic.vim
 
 " Dein {{{
-if &compatible
-  set nocompatible
-endif
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  "call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
-
-  call dein#add('junegunn/fzf',
-    \ { 'build': './install --all', 'merged': 0 })
-  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-  call dein#add('neoclide/coc.nvim',
-    \ { 'build': 'yarn install' })
-
-  call dein#add('itchyny/lightline.vim')
-  call dein#add('taohexxx/lightline-buffer')
-  call dein#add('ryanoasis/vim-devicons')
-  call dein#add('morhetz/gruvbox')
-
-  call dein#add('jiangmiao/auto-pairs')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('sjl/gundo.vim')
-
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('tpope/vim-endwise')
-
-  if dein#check_install()
-    call dein#install()
-  endif
-
-  call dein#end()
-  call dein#save_state()
-endif
+source ./config/dein.vim
 " }}}
 
 " General {{{
@@ -57,6 +17,7 @@ filetype indent on
 filetype plugin on
 
 set autoread
+set mouse=a
 
 set showmatch
 set mat=2
@@ -126,229 +87,7 @@ set laststatus=2
 " }}}
 
 " Completion {{{
-" if hidden not set, TextEdit might fail.
-set hidden
-
-" Better display for messages
-set cmdheight=2
-
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-
-"let g:endwise_no_mappings = 1
-"https://github.com/roxma/nvim-completion-manager/issues/49#issuecomment-285923119
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB>
-      \ pumvisible() ? "\<C-p>" :
-      \ "\<C-h>"
-
-
-function! s:check_back_space() abort
- let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> for trigger completion.
-"inoremap <silent><expr> <c-space> coc#refresh()
-imap <c-space> coc#refresh()
-
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr>
-      \ pumvisible() ? "\<C-y>" :
-      \ "\<C-g>u\<CR>\<Plug>DiscretionaryEnd"
-
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Close preview window when completion done
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-
-" Add diagnostic info for https://github.com/itchyny/lightline.vim
-" For icons: https://github.com/ryanoasis/vim-devicons/wiki/usage
-let g:lightline = {
-      \ 'tabline': {
-      \   'left': [ [ 'bufferinfo' ],
-      \             [ 'separator' ],
-      \             [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
-      \   'right': [ [ 'close' ], ],
-      \ },
-      \ 'colorscheme': 'seoul256',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component': {
-      \   'lineinfo': ' %3l:%-2v',
-      \   'separator': '',
-      \ },
-      \ 'component_expand': {
-      \   'buffercurrent': 'lightline#buffer#buffercurrent',
-      \   'bufferbefore': 'lightline#buffer#bufferbefore',
-      \   'bufferafter': 'lightline#buffer#bufferafter',
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'MyFugitive',
-      \   'cocstatus': 'coc#status',
-      \   'bufferinfo': 'lightline#buffer#bufferinfo',
-      \ },
-      \ 'component_type': {
-      \   'buffercurrent': 'tabsel',
-      \   'bufferbefore': 'raw',
-      \   'bufferafter': 'raw',
-      \ },
-      \ }
-let g:lightline.separator = {
-	\   'left': '', 'right': ''
-  \}
-""let g:lightline.subseparator = {
-""	\   'left': '', 'right': '' 
-""  \}
-""let g:lightline.tabline = {
-""  \   'left': [ ['tabs'] ],
-""  \   'right': [ ['close'] ]
-""  \ }
-set showtabline=2  " Show tabline
-set guioptions-=e  " Don't use GUI tabline
-
-function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! MyFileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-
-function! MyFugitive()
-  return (winwidth(0) > 70) && (strlen(fugitive#head()) > 0) ? (' ' . fugitive#head()) : ''
-endfunction
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" remap arrow keys
-nnoremap <Left> :bprev<CR>
-nnoremap <Right> :bnext<CR>
-
-" lightline-buffer ui settings
-" replace these symbols with ascii characters if your environment does not support unicode
-let g:lightline_buffer_logo = ' '
-let g:lightline_buffer_readonly_icon = ''
-let g:lightline_buffer_modified_icon = '✭'
-let g:lightline_buffer_git_icon = ' '
-let g:lightline_buffer_ellipsis_icon = '..'
-let g:lightline_buffer_expand_left_icon = '◀ '
-let g:lightline_buffer_expand_right_icon = ' ▶'
-let g:lightline_buffer_active_buffer_left_icon = ''
-let g:lightline_buffer_active_buffer_right_icon = ''
-let g:lightline_buffer_separator_icon = '  '
-
-" enable devicons, only support utf-8
-" require <https://github.com/ryanoasis/vim-devicons>
-let g:lightline_buffer_enable_devicons = 1
-
-" lightline-buffer function settings
-let g:lightline_buffer_show_bufnr = 1
-
-" :help filename-modifiers
-let g:lightline_buffer_fname_mod = ':t'
-
-" hide buffer list
-let g:lightline_buffer_excludes = ['vimfiler']
-
-" max file name length
-let g:lightline_buffer_maxflen = 30
-
-" max file extension length
-let g:lightline_buffer_maxfextlen = 3
-
-" min file name length
-let g:lightline_buffer_minflen = 16
-
-" min file extension length
-let g:lightline_buffer_minfextlen = 3
-
-" reserve length for other component (e.g. info, close)
-let g:lightline_buffer_reservelen = 20
+set omnifunc=syntaxcomplete#Complete 
 " }}}
 
 " Searching {{{
@@ -385,6 +124,20 @@ let g:netrw_browse_split=4
 let g:netrw_altv=1
 let g:netrw_liststyle=3
 
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" loading the plugin
+let g:webdevicons_enable = 1
+" adding the flags to NERDTree
+let g:webdevicons_enable_nerdtree = 1
+" whether or not to show the nerdtree brackets around flags
+let g:webdevicons_conceal_nerdtree_brackets = 1
+" the amount of space to use after the glyph character (default ' ')
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+" Force extra padding in NERDTree so that the filetype icons line up vertically
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+
 " }}}
 
 " Remap keys {{{
@@ -393,7 +146,7 @@ let mapleader=','
 inoremap jk <esc>
 nnoremap j gj
 nnoremap k gk
-nnoremap <space> za
+nnoremap <space><space> za
 
 " }}}
 
@@ -482,6 +235,10 @@ augroup configgroup
     autocmd FileType java setlocal list
     autocmd FileType java setlocal listchars=tab:+\ ,eol:-
     autocmd FileType java setlocal formatprg=par\ -w80\ -T4
+    autocmd FileType lua setlocal tabstop=2
+    autocmd FileType lua setlocal shiftwidth=2
+    autocmd FileType lua setlocal softtabstop=2
+    autocmd FileType lua setlocal commentstring=--\ %s
     autocmd FileType php setlocal expandtab
     autocmd FileType php setlocal list
     autocmd FileType php setlocal listchars=tab:+\ ,eol:-
@@ -495,6 +252,7 @@ augroup configgroup
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
     autocmd BufEnter *.lua setlocal filetype=lua
     autocmd BufEnter *.ruby setlocal filetype=ruby
+    autocmd BufEnter *.lua setlocal filetype=lua
     autocmd BufEnter Makefile setlocal noexpandtab
     autocmd BufEnter *.sh setlocal tabstop=2
     autocmd BufEnter *.sh setlocal shiftwidth=2
@@ -503,12 +261,6 @@ augroup configgroup
       \ if line("'\"") > 0 && line ("'\"") <= line("$") |
       \   exe "normal! g'\"" |
       \ endif
-augroup END
-
-augroup loadpacks
-    autocmd FileType javascript packadd vim-javascript
-    autocmd FileType ruby packadd vim-ruby
-    autocmd FileType ruby packadd vim-rails
 augroup END
 " }}}
 
@@ -559,6 +311,9 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 " }}}
+
+source ./config/lightline.vim
+source ./config/coc.vim
 
 set modelines=1
 " vim:foldmethod=marker:foldlevel=0
