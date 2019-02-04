@@ -4,7 +4,7 @@
 " https://github.com/amix/vimrc/blob/44dca49794b3cc3c1ee8d331ee0a56a68a063263/vimrcs/basic.vim
 
 " Dein {{{
-source ./config/dein.vim
+source ~/.config/nvim/config/dein.vim
 " }}}
 
 " General {{{
@@ -312,8 +312,8 @@ endfunction
 
 " }}}
 
-source ./config/lightline.vim
-source ./config/coc.vim
+source ~/.config/nvim/config/lightline.vim
+source ~/.config/nvim/config/coc.vim
 
 set modelines=1
 " vim:foldmethod=marker:foldlevel=0
